@@ -75,7 +75,7 @@ public class SmasherMachineContext extends MachineContext {
 		int Loop;
 		for (Loop = 0; Loop < 256; Loop++) {
 			if (Loop <= 0x23) {
-				Memory[Loop] = new MemorySpot("", StackContentsColor, CodeColor3);
+				Memory[Loop] = new MemorySpot("", StackContentsColor, CodeColor3); // This looks like where to change to put some random characters in the code area
 			} else if (Loop <= 0x43) {
 				Memory[Loop] = new MemorySpot("", StackContentsColor, CodeColor1);
 			} else if (Loop <= 0x6A) {
