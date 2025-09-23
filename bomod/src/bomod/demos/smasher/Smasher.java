@@ -235,7 +235,7 @@ public class Smasher extends DemoApplet {
 	boolean bWasPlaying = false;
 
 	public void keyTyped(KeyEvent e) {
-		char c = Character.toUpperCase(e.getKeyChar());
+		char c = e.getKeyChar();
 		e.consume(); // prevent the character from actually being typed, we will set it ourselves
 		if ((c == '\n') && (typingArea.isEnabled())) {
 			if (bWasPlaying) {
