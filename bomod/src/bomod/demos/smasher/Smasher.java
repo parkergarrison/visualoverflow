@@ -111,8 +111,8 @@ public class Smasher extends DemoApplet {
 		add(typingArea);
 	}
 
-	public static final int MAXWIDTH = 750;
-	public static final int MAXHEIGHT = 420;
+	public static final int MAXWIDTH = 1000;
+	public static final int MAXHEIGHT = 640;
 	public static final int XADD = 10;
 	public static final int YADD = 40;
 	public static final int XCODEADD = XADD + 20;
@@ -121,7 +121,7 @@ public class Smasher extends DemoApplet {
 	public static final int HIGHLIGHTWIDTH = 360;
 	public static final int XMEMADD = XADD + 460;
 	public static final int YMEMADD = YADD + 124;
-	public static final int MEMSPACING = 16;
+	public static final int MEMSPACING = 30;
 	public static final int XOUTPUTADD = XMEMADD;
 	public static final int YOUTPUTADD = YCODEADD - 8;
 	public static final int OUTPUTWIDTH = 256;
@@ -173,11 +173,11 @@ public class Smasher extends DemoApplet {
 		
 		for (XLoop = 0; XLoop < 17; XLoop++) {
 			g.setColor(Color.gray);
-			g.drawLine(XMEMADD + XLoop * MEMSPACING, YMEMADD, XMEMADD + XLoop * MEMSPACING, YMEMADD + 256);
+			g.drawLine(XMEMADD + XLoop * MEMSPACING, YMEMADD, XMEMADD + XLoop * MEMSPACING, YMEMADD + 16 * MEMSPACING);
 		}
 		for (YLoop = 0; YLoop < 17; YLoop++) {
 			g.setColor(Color.gray);
-			g.drawLine(XMEMADD, YMEMADD + YLoop * MEMSPACING, XMEMADD + 256, YMEMADD + YLoop * MEMSPACING);
+			g.drawLine(XMEMADD, YMEMADD + YLoop * MEMSPACING, XMEMADD + 16 * MEMSPACING, YMEMADD + YLoop * MEMSPACING);
 		}
 		for (XLoop = 0; XLoop < 16; XLoop++) {
 			sHex = Integer.toHexString(XLoop);
@@ -194,10 +194,13 @@ public class Smasher extends DemoApplet {
 
 		for (XLoop = 0; XLoop < 16; XLoop++)
 			for (YLoop = 0; YLoop < 16; YLoop++) {
+
 				g.setColor(m.Memory[YLoop * 16 + XLoop].BGColor);
-				g.fillRect(XMEMADD + 1 + XLoop * MEMSPACING, YMEMADD + 1 + YLoop * MEMSPACING, 15, 15);
+				g.fillRect(XMEMADD + 1 + XLoop * MEMSPACING, YMEMADD + 1 + YLoop * MEMSPACING, MEMSPACING-1, MEMSPACING-1);
 				g.setColor(m.Memory[YLoop * 16 + XLoop].FGColor);
 				g.drawString(m.Memory[YLoop * 16 + XLoop].Contents, XMEMADD + XLoop * MEMSPACING + (MEMSPACING / 4), YMEMADD + YLoop * MEMSPACING + (MEMSPACING * 3 / 4 + 1));
+                // Printing the memory contents
+                // Maybe alter this when printing hex as 2 chars instead of 1
 			}
 
 		g.setColor(m.ConsoleBackgroundColor);
@@ -246,7 +249,7 @@ public class Smasher extends DemoApplet {
 			} else if (!bStepping){
 				StepOnce();
 			}
-		} else if (((c >= 'A') && (c <= 'Z'))) {
+		} else if (((c >= 'A') && (c <= 'Z'))) { // Only allows letters to be typed. Possible point to change when allowing input as hex value instead of ascii
 			if ((UserInputIndex - m.InputStart) < 25) {
 				m.sSaveIt = m.sSaveIt += c;
 				m.Output[1] = m.Output[1] += c;
@@ -275,7 +278,7 @@ public class Smasher extends DemoApplet {
 
 		for (PC = m.PCStart; PC <= m.PCStop; PC++) {
 			if (PC != m.PCStart) {
-				m.Memory[PC - 1].Contents = " ";
+				m.Memory[PC - 1].Contents = " "; // Possible change - If we want to show code here
 			}
 			m.Memory[PC].Contents = "*";
 			bMemoryOnly = true;

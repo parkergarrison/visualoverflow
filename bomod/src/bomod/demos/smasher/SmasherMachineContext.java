@@ -197,16 +197,10 @@ public class SmasherMachineContext extends MachineContext {
 			TheStack[7] = new MemorySpot("", StackContentsColor, CodeColor3);
 			TheStack[8] = new MemorySpot("", StackContentsColor, CodeColor3);
 			TheStack[9] = new MemorySpot("", StackContentsColor, CodeColor3);
-			Memory[0xC0] = TheStack[0];
-			Memory[0xC1] = TheStack[1];
-			Memory[0xC2] = TheStack[2];
-			Memory[0xC3] = TheStack[3];
-			Memory[0xC4] = TheStack[4];
-			Memory[0xC5] = TheStack[5];
-			Memory[0xC6] = TheStack[6];
-			Memory[0xC7] = TheStack[7];
-			Memory[0xC8] = TheStack[8];
-			Memory[0xC9] = TheStack[9];
+
+            for (int i = 0; i < 10; i++) {
+                Memory[0xC0 + i] = TheStack[i];
+            }
 			StackSize = 10;
 			break;
 		case 2:
@@ -226,9 +220,16 @@ public class SmasherMachineContext extends MachineContext {
 			TheStack[17] = new MemorySpot("", StackContentsColor, CodeColor1);
 			TheStack[18] = new MemorySpot("", StackContentsColor, CodeColor1);
 			TheStack[19] = new MemorySpot("", StackContentsColor, CodeColor1);
-			TheStack[20] = new MemorySpot("$", ReturnPointerColor, CodeColor3);
-			StackSize = 21;
-			Memory[0xCA] = TheStack[10];
+			TheStack[20] = new MemorySpot("\\x23", ReturnPointerColor, CodeColor1);
+            TheStack[21] = new MemorySpot("\\x00", ReturnPointerColor, CodeColor1);
+            TheStack[22] = new MemorySpot("\\x00", ReturnPointerColor, CodeColor1);
+            TheStack[23] = new MemorySpot("\\x00", ReturnPointerColor, CodeColor1);
+			StackSize = 24;
+
+            for (int i = 0; i < 14; i++) {
+                Memory[0xCA + i] = TheStack[10 + i];
+            }
+			/*Memory[0xCA] = TheStack[10];
 			Memory[0xCB] = TheStack[11];
 			Memory[0xCC] = TheStack[12];
 			Memory[0xCD] = TheStack[13];
@@ -238,7 +239,7 @@ public class SmasherMachineContext extends MachineContext {
 			Memory[0xD1] = TheStack[17];
 			Memory[0xD2] = TheStack[18];
 			Memory[0xD3] = TheStack[19];
-			Memory[0xD4] = TheStack[20];
+			Memory[0xD4] = TheStack[20];*/
 			break;
 		case 5:
 			break;
@@ -249,7 +250,7 @@ public class SmasherMachineContext extends MachineContext {
 			Output[3] = sSaveIt;
 			break;
 		case 8:
-			if (Memory[0xD4].Contents.compareTo("D") == 0) {
+			if (Memory[0xD4].Contents.compareTo("D") == 0 && Memory[0xD5].Contents.compareTo("\\x00") == 0 && Memory[0xD6].Contents.compareTo("\\x00") == 0 && Memory[0xD7].Contents.compareTo("\\x00") == 0) {
 				Step = 19;
 			} else if (Memory[0xD4].Contents.compareTo("$") != 0) {
 				Step = 39;

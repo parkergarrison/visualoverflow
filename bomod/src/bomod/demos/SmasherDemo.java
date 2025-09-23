@@ -42,7 +42,7 @@ public class SmasherDemo extends JFrame {
 			applet.setParameter(DemoApplet.DEFAULT_CODE_COLOR_PARAM, Color.BLACK);
 			applet.setParameter(DemoApplet.CODE_COLOR1_PARAM, Color.GREEN.darker());
 			applet.setParameter(DemoApplet.CODE_COLOR2_PARAM, Color.RED.darker());
-			applet.setParameter(DemoApplet.CODE_COLOR3_PARAM, new Color(255, 0, 255).darker()); // dark purple
+			applet.setParameter(DemoApplet.CODE_COLOR3_PARAM, new Color(0, 255, 255).darker()); // cyan
 		} else {
 			applet.setParameter(DemoApplet.BACKGROUND_COLOR_PARAM,new Color(0, 0, 128));
 			applet.setParameter(DemoApplet.CODE_COLOR1_PARAM, Color.GREEN);
