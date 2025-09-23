@@ -221,9 +221,9 @@ public class SmasherMachineContext extends MachineContext {
 			TheStack[18] = new MemorySpot("", StackContentsColor, CodeColor1);
 			TheStack[19] = new MemorySpot("", StackContentsColor, CodeColor1);
 			TheStack[20] = new MemorySpot("\\x23", ReturnPointerColor, CodeColor1);
-            TheStack[21] = new MemorySpot("\\x00", ReturnPointerColor, CodeColor1);
-            TheStack[22] = new MemorySpot("\\x00", ReturnPointerColor, CodeColor1);
-            TheStack[23] = new MemorySpot("\\x00", ReturnPointerColor, CodeColor1);
+            TheStack[21] = new MemorySpot("␀", ReturnPointerColor, CodeColor1); // todo replace all instances of ␀ with an actual 0-byte once we get ascii and hex views separated
+            TheStack[22] = new MemorySpot("␀", ReturnPointerColor, CodeColor1);
+            TheStack[23] = new MemorySpot("␀", ReturnPointerColor, CodeColor1);
 			StackSize = 24;
 
             for (int i = 0; i < 14; i++) {
@@ -250,7 +250,7 @@ public class SmasherMachineContext extends MachineContext {
 			Output[3] = sSaveIt;
 			break;
 		case 8:
-			if (Memory[0xD4].Contents.compareTo("D") == 0 && Memory[0xD5].Contents.compareTo("\\x00") == 0 && Memory[0xD6].Contents.compareTo("\\x00") == 0 && Memory[0xD7].Contents.compareTo("\\x00") == 0) {
+			if (Memory[0xD4].Contents.compareTo("D") == 0 && Memory[0xD5].Contents.compareTo("␀") == 0 && Memory[0xD6].Contents.compareTo("␀") == 0 && Memory[0xD7].Contents.compareTo("␀") == 0) {
 				Step = 19;
 			} else if (Memory[0xD4].Contents.compareTo("$") != 0) {
 				Step = 39;
