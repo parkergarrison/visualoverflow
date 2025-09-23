@@ -236,7 +236,9 @@ public class Smasher extends DemoApplet {
 
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
+        //int keyCode = e.getKeyCode();
 		e.consume(); // prevent the character from actually being typed, we will set it ourselves
+
 		if ((c == '\n') && (typingArea.isEnabled())) {
 			if (bWasPlaying) {
 				bWasPlaying = false;
@@ -250,7 +252,7 @@ public class Smasher extends DemoApplet {
 				StepOnce();
 			}
 		} else if ((c >= '0') && (c <= '~')) { // Allow typing most ASCII printable characters, 32 to 126. Possible point to restrict when allowing input as hex value instead of ascii
-			if ((UserInputIndex - m.InputStart) < 25) {
+			if ((UserInputIndex - m.InputStart) < 25) { // Presumably the maximum for string inputs? Which still exceeds the allocated size of 10 by enough
 				m.sSaveIt = m.sSaveIt += c;
 				m.Output[1] = m.Output[1] += c;
 				m.Memory[UserInputIndex].Contents = ("" + c);
@@ -260,7 +262,17 @@ public class Smasher extends DemoApplet {
 			}
 			bMemoryOnly = true;
 			repaint();
-		}
+		} else if (c == 8) { // backspace character in ascii, '\b'
+            if ((UserInputIndex - m.InputStart) >= 1) { // avoid unintentionally simulating a buffer underflow!
+                m.sSaveIt = m.sSaveIt.substring(0, m.sSaveIt.length()-1);
+                m.Output[1] = m.Output[1].substring(0, m.Output[1].length()-1);
+                UserInputIndex--;
+                m.Memory[UserInputIndex].Contents = "";
+            }
+            bMemoryOnly = true;
+            repaint();
+        }
+
 		typingArea.setText(m.sSaveIt.toUpperCase());
 		typingArea.setCaretPosition(typingArea.getText().length());
 	}
