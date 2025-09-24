@@ -71,19 +71,22 @@ public class SmasherDemo extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				Object[] options = { "Classic Color Scheme", "Presentation Mode Color Scheme"};
-				int n = JOptionPane.showOptionDialog(new JFrame(), "What color scheme would you like to use?",
+				/*Object[] options = { "Classic Color Scheme", "Presentation Mode Color Scheme"};
+				int n = JOptionPane.showOptionDialog(new JFrame(), "What color scheme would you like to use? (Suggestion: Presentation Mode)",
 						"Color Scheme Settings", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 						options, options[1]);
-				
+				*/
 				SmasherDemo app;
+                /*
 				
 				if(n==1){
 					// presentation mode color scheme
-					app = new SmasherDemo(true);
-				} else {
+
+				 */
+                app = new SmasherDemo(true);
+				/*} else {
 					app = new SmasherDemo(false);
-				}
+				}*/
 				
 				app.setVisible(true);
 			}
