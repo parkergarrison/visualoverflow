@@ -251,7 +251,7 @@ public class Smasher extends DemoApplet {
 			} else if (!bStepping){
 				StepOnce();
 			}
-		} else if ((c >= '0') && (c <= '~')) { // Allow typing most ASCII printable characters, 32 to 126. Possible point to restrict when allowing input as hex value instead of ascii
+		} else if ((c >= ' ') && (c <= '~') || (c == '␀')) { // Allow typing most ASCII printable characters, 32 to 126, and ␀. Possible point to restrict when allowing input as hex value instead of ascii
 			if ((UserInputIndex - m.InputStart) < 25) { // Presumably the maximum for string inputs? Which still exceeds the allocated size of 10 by enough
 				m.sSaveIt = m.sSaveIt += c;
 				m.Output[1] = m.Output[1] += c;

@@ -8,10 +8,11 @@ import bomod.MachineContext;
  * Machine context specific to the Smasher applet
  * 
  * Original source by Jedidiah Crandall Java 1.7 compatibility modifications and
- * style changes by Ben Holland
+ * style changes by Ben Holland; further changes by Parker Garrison
  * 
  * @author Jedidiah Crandall <crandaj@erau.edu>
  * @author Benjamin Holland <bholland@iastate.edu>
+ * @author Parker Garrison <parkergarrison.com>
  */
 public class SmasherMachineContext extends MachineContext {
 
@@ -98,7 +99,7 @@ public class SmasherMachineContext extends MachineContext {
 			PCStart = 0x00;
 			PCStop = 0x00;
 			HighlightedLine = 17;
-			sExplanation = "This is a demo of how you can \"smash the stack\" by overwriting the return pointer";
+			sExplanation = "This is a demo of how you can \"smash the stack\" by overwriting the saved copy of the$ return pointer";
 			break;
 		case 2:
 			PCStart = 0x00;
@@ -116,7 +117,7 @@ public class SmasherMachineContext extends MachineContext {
 			PCStart = 0x24;
 			PCStop = 0x24;
 			HighlightedLine = 5;
-			sExplanation = "get_string has some stack space and also a return pointer to main (the '$')";
+			sExplanation = "get_string has some stack space and also a return pointer to main (the '#')";
 			break;
 		case 5:
 			PCStart = 0x24;
@@ -220,7 +221,7 @@ public class SmasherMachineContext extends MachineContext {
 			TheStack[17] = new MemorySpot("", StackContentsColor, CodeColor1);
 			TheStack[18] = new MemorySpot("", StackContentsColor, CodeColor1);
 			TheStack[19] = new MemorySpot("", StackContentsColor, CodeColor1);
-			TheStack[20] = new MemorySpot("\\x23", ReturnPointerColor, CodeColor1);
+			TheStack[20] = new MemorySpot("#", ReturnPointerColor, CodeColor1);
             TheStack[21] = new MemorySpot("␀", ReturnPointerColor, CodeColor1); // todo replace all instances of ␀ with an actual 0-byte once we get ascii and hex views separated
             TheStack[22] = new MemorySpot("␀", ReturnPointerColor, CodeColor1);
             TheStack[23] = new MemorySpot("␀", ReturnPointerColor, CodeColor1);
@@ -252,7 +253,22 @@ public class SmasherMachineContext extends MachineContext {
 		case 8:
 			if (Memory[0xD4].Contents.compareTo("D") == 0 && Memory[0xD5].Contents.compareTo("␀") == 0 && Memory[0xD6].Contents.compareTo("␀") == 0 && Memory[0xD7].Contents.compareTo("␀") == 0) {
 				Step = 19;
-			} else if (Memory[0xD4].Contents.compareTo("$") != 0) {
+			} else if (Memory[0xD4].Contents.compareTo("$") == 0 && Memory[0xD5].Contents.compareTo("␀") == 0 && Memory[0xD6].Contents.compareTo("␀") == 0 && Memory[0xD7].Contents.compareTo("␀") == 0) {
+                // primitive scroll/reset of the screen
+                sSaveIt = "";
+
+                Output[0] = "...";
+                Output[1] = "";
+                Output[2] = "";
+                Output[3] = "";
+                Output[4] = "";
+
+                Step = 4;
+            } else if (Memory[0xD4].Contents.compareTo("␀") == 0 && Memory[0xD5].Contents.compareTo("␀") == 0 && Memory[0xD6].Contents.compareTo("␀") == 0 && Memory[0xD7].Contents.compareTo("␀") == 0) {
+                Step = 1;
+            } else if (Memory[0xD4].Contents.compareTo("#") == 0 && Memory[0xD5].Contents.compareTo("␀") == 0 && Memory[0xD6].Contents.compareTo("␀") == 0 && Memory[0xD7].Contents.compareTo("␀") == 0) {
+                // Continue to subsequent step
+            } else {
 				Step = 39;
 			}
 			break;
