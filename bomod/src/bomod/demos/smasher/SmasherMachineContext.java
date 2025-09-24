@@ -276,8 +276,8 @@ public class SmasherMachineContext extends MachineContext {
 			int Loop;
 			for (Loop = 0xCA; Loop < 0xFF; Loop++) {
 				Memory[Loop].Contents = "";
-				Memory[Loop].FGColor = Color.white;
-				Memory[Loop].BGColor = Color.darkGray;
+				Memory[Loop].FGColor = Color.black;
+				Memory[Loop].BGColor = Color.white;
 			}
 			Memory[0x43].Contents = "";
 			break;
