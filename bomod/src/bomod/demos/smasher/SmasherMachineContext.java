@@ -167,7 +167,7 @@ public class SmasherMachineContext extends MachineContext {
 			PCStart = 0x6A;
 			PCStop = 0x6A;
 			HighlightedLine = 14;
-			sExplanation = "An attacker could get their code into memory, on the stack or the heap, by using your program's input routines";
+			sExplanation = "Success! An attacker can get their code into memory, on the stack or the heap, by using a program's input routines.";
 			return false;
 		case 40:
 			PCStart = 0x43;
